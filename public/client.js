@@ -20,15 +20,18 @@ function sendMessage(message) {
             user: name,
             message: message.trim(),
         };
-        // Append
-        appendMessage(msg, 'outgoing');
-        textarea.value = '';
-        scrollToBottom();
 
         // Send to server
         socket.emit('message', msg);
+
+        // Append outgoing message
+        appendMessage(msg, 'outgoing');
+
+        textarea.value = '';
+        scrollToBottom();
     }
 }
+
 
 function appendMessage(msg, type) {
     let mainDiv = document.createElement('div')
@@ -42,6 +45,8 @@ function appendMessage(msg, type) {
     mainDiv.innerHTML = markup
     messageArea.appendChild(mainDiv)
 }
+
+
 
 // Recieve messages 
 socket.on('message', (msg) => {
